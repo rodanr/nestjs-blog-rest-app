@@ -8,6 +8,7 @@
 * POST: `/blog`
 * PATCH: `/blog:id`
 * DELETE: `/blog:id`
+> note: all `:id` above are blog id
 
 *Send the json body for post and patch for blog as:*
 > note: for patch, body sections are optional and only those attribute supplied with json body will be updated
@@ -22,7 +23,11 @@
 ### For Commenting in a Blog:
 
 * POST: `blog/:id/comment`
-*Send the json body for posting comment as:*
+  * `:id` is the blog id
+* PATCH: `blog/comment/:id`
+  * `:id` is the comment id
+
+*Send the json body for posting and updating comment as:*
 ```json
 {
 	"comment":"comment-string"

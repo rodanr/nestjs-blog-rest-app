@@ -58,4 +58,20 @@ export class BlogService {
     return this.commentRepository.save(comment);
     // return this.commentRepository.find();
   }
+  /**
+   *
+   * @param id{number}- comment id
+   * @param createBlogDto
+   * @returns
+   */
+  async updateComment(id: number, createBlogDto: CreateCommentDto) {
+    const comment = await this.commentRepository.preload({
+      id: +id,
+      ...createBlogDto,
+    });
+    if (!comment) {
+      throw new NotFoundException(`Comment #${id} not found`);
+    }
+    return this.commentRepository.save(comment);
+  }
 }
