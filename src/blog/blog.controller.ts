@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
+import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
 
 @Controller('blog')
@@ -34,5 +35,9 @@ export class BlogController {
   @Delete(':id')
   remove(@Param('id') id: number) {
     return this.appService.remove(id);
+  }
+  @Post('/:id/comment')
+  createComment(@Param('id') id: number, @Body() body: CreateCommentDto) {
+    return this.appService.createComment(id, body);
   }
 }

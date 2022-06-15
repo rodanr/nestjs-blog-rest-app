@@ -2,11 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Comment } from './comment.entity';
 
-@Entity()
+// ordering data in ascending order of id
+@Entity({ orderBy: { id: 'ASC' } })
 export class Blog {
   @PrimaryGeneratedColumn()
   id: number;
@@ -20,4 +23,6 @@ export class Blog {
   createdOn: Date;
   @UpdateDateColumn({ name: 'updated_at' })
   lastUpdatedOn: Date;
+  @OneToMany(() => Comment, (comment) => comment.blog)
+  comments: Comment[];
 }

@@ -19,10 +19,20 @@
 }
 ```
 
-### Schema
+### For Commenting in a Blog:
+
+* POST: `blog/:id/comment`
+*Send the json body for posting comment as:*
+```json
+{
+	"comment":"comment-string"
+}
+```
+
+## Schema
 ![ERD of App](erd_blog_app_fig_1_1.png)
 
-#### Self Notes
+## Self Notes
 * `blog` module is responsible for blog related operations are responsible
 * For database typeorm is used with postgres being setup using docker which specification is provided by `docker-compose.yml`
 * use the below command to fire up docker
