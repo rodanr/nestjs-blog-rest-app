@@ -23,9 +23,10 @@
 `author:string` 
 `createdOn:Date` 
 `lastUpdatedOn:Date`
+> Schema for the app is specified in the `./src/model/blog.model.ts` file
 
 #### Self Notes
-* This app uses the root module
+* This app uses the root module for service and controller implementation for rest operations without creating separate module
 * For database typeorm is used with postgres being setup using docker which specification is provided by `docker-compose.yml`
 * use the below command to fire up docker
 	```bash 
