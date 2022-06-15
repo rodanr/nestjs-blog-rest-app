@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Blog } from './model/blog.model';
+import { BlogModule } from './blog/blog.module';
 
 @Module({
   imports: [
+    BlogModule,
     // connecting to the postgres
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -19,7 +20,6 @@ import { Blog } from './model/blog.model';
     }),
     // Enables to use the blogRepository
     //Blog is the entity imported from models directory
-    TypeOrmModule.forFeature([Blog]),
   ],
   controllers: [AppController],
   providers: [AppService],

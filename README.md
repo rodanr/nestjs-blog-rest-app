@@ -1,13 +1,15 @@
-## A simple blog rest api made using nestjs
+# A simple blog rest api made using nestjs
 
-### Operations supported
+## Operations supported
+### For Blog:
 
-* GET: `/`
-* GET: `/:id`
-* POST: `/`
-* PATCH: `/:id`
-* DELETE: `/:id`
-#### Send the json body for post and patch as:
+* GET: `/blog`
+* GET: `/blog/:id`
+* POST: `/blog`
+* PATCH: `/blog:id`
+* DELETE: `/blog:id`
+
+*Send the json body for post and patch for blog as:*
 ```json
 {
 	"title":"title-string",
@@ -17,16 +19,10 @@
 ```
 
 ### Schema
-`id:number`
-`title:string` 
-`description:string` 
-`author:string` 
-`createdOn:Date` 
-`lastUpdatedOn:Date`
-> Schema for the app is specified in the `./src/model/blog.model.ts` file
+![ERD of App](erd_blog_app_fig_1_1.png)
 
 #### Self Notes
-* This app uses the root module for service and controller implementation for rest operations without creating separate module
+* Blog related operations are responsible for `blog` module
 * For database typeorm is used with postgres being setup using docker which specification is provided by `docker-compose.yml`
 * use the below command to fire up docker
 	```bash 
