@@ -6,6 +6,7 @@ import { Blog } from './model/blog.model';
 
 @Module({
   imports: [
+    // connecting to the postgres
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -16,6 +17,8 @@ import { Blog } from './model/blog.model';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    // Enables to use the blogRepository
+    //Blog is the entity imported from models directory
     TypeOrmModule.forFeature([Blog]),
   ],
   controllers: [AppController],
