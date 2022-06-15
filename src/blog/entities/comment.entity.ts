@@ -13,8 +13,8 @@ export class Comment {
   id: number;
   @Column()
   comment: string;
-
   @ManyToOne(() => Blog, (blog) => blog.comments)
   @JoinColumn({ name: 'blog_id' })
+  // instance of Blog should be passed for blog:_
   blog: Blog;
 }

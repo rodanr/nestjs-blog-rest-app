@@ -59,10 +59,9 @@ export class BlogService {
     // return this.commentRepository.find();
   }
   /**
-   *
    * @param id{number}- comment id
    * @param createBlogDto
-   * @returns
+   * @returns createBlogDto
    */
   async updateComment(id: number, createBlogDto: CreateCommentDto) {
     const comment = await this.commentRepository.preload({
