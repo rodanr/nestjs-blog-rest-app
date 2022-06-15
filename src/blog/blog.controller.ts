@@ -8,6 +8,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
+import { CreateBlogDto } from './dto/create-blog.dto';
+import { UpdateBlogDto } from './dto/update-blog.dto';
 
 @Controller('blog')
 export class BlogController {
@@ -22,11 +24,11 @@ export class BlogController {
     return this.appService.findOne(id);
   }
   @Post()
-  create(@Body() body: any) {
+  create(@Body() body: CreateBlogDto) {
     return this.appService.create(body);
   }
   @Patch(':id')
-  update(@Param('id') id: number, @Body() body: any) {
+  update(@Param('id') id: number, @Body() body: UpdateBlogDto) {
     return this.appService.update(id, body);
   }
   @Delete(':id')

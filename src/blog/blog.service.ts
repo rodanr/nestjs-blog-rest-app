@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateBlogDto } from './dto/create-blog.dto';
+import { UpdateBlogDto } from './dto/update-blog.dto';
 import { Blog } from './entities/blog.entity';
 
 @Injectable()
@@ -19,14 +21,14 @@ export class BlogService {
     }
     return blog;
   }
-  create(createBlog: any) {
-    const blog = this.blogRepository.create(createBlog);
+  create(createBlogDto: CreateBlogDto) {
+    const blog = this.blogRepository.create(createBlogDto);
     return this.blogRepository.save(blog);
   }
-  async update(id: number, updateBlog: any) {
+  async update(id: number, updateBlogDto: UpdateBlogDto) {
     const blog = await this.blogRepository.preload({
       id: +id,
-      ...updateBlog,
+      ...updateBlogDto,
     });
     if (!blog) {
       throw new NotFoundException(`Blog #${id} not found`);
