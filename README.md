@@ -37,3 +37,6 @@
 	```bash
 	docker rm -f <CONTAINER ID>
 	```
+* Some important links for reference and tutorials
+  * [nestjs docs](https://docs.nestjs.com/)
+  * [typeorm docs](https://typeorm.io/)
