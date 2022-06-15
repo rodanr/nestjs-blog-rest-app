@@ -23,3 +23,20 @@
 `author:string` 
 `createdOn:Date` 
 `lastUpdatedOn:Date`
+
+#### Self Notes
+* This app uses the root module
+* For database typeorm is used with postgres being setup using docker which specification is provided by `docker-compose.yml`
+* use the below command to fire up docker
+	```bash 
+	docker compose up -d 
+	```
+* If docker throws an error of *port already being used* then follow these steps
+	1. List the docker containers currently active
+	```bash
+	docker container ls 
+	```
+	2. Remove the docker container currently running to free the ports
+	```bash
+	docker rm -f <CONTAINER ID>
+	```
