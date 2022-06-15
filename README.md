@@ -10,6 +10,7 @@
 * DELETE: `/blog:id`
 
 *Send the json body for post and patch for blog as:*
+> note: for patch, body sections are optional and only those attribute supplied with json body will be updated
 ```json
 {
 	"title":"title-string",
@@ -22,7 +23,7 @@
 ![ERD of App](erd_blog_app_fig_1_1.png)
 
 #### Self Notes
-* Blog related operations are responsible for `blog` module
+* `blog` module is responsible for blog related operations are responsible
 * For database typeorm is used with postgres being setup using docker which specification is provided by `docker-compose.yml`
 * use the below command to fire up docker
 	```bash 
