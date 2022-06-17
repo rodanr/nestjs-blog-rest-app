@@ -41,6 +41,16 @@ export class BlogController {
   remove(@Param('id') id: number) {
     return this.blogService.remove(id);
   }
+
+  // operations for user management in comment and blog
+  @Get('/comment/:id/user')
+  getUserByCommentId(@Param('id') id: number) {
+    return this.blogService.getUserByCommentId(id);
+  }
+  @Get(':id/user')
+  getUserByBlogId(@Param('id') id: number) {
+    return this.blogService.getUserByBlogId(id);
+  }
   // Operations for comment management in blog
   @Post('/:id/comment')
   createComment(@Param('id') id: number, @Body() body: CreateCommentDto) {
@@ -53,14 +63,5 @@ export class BlogController {
   @Delete('/comment/:id')
   deleteComment(@Param('id') id: number) {
     return this.blogService.removeComment(id);
-  }
-  // operations for user management in comment and blog
-  @Get('/comment/:id/user')
-  getUserByCommentId(@Param('id') id: number) {
-    return this.blogService.getUserByCommentId(id);
-  }
-  @Get(':id/user')
-  getUserByBlogId(@Param('id') id: number) {
-    return this.blogService.getUserByBlogId(id);
   }
 }
