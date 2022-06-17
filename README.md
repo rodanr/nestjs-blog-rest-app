@@ -77,7 +77,7 @@
 
 ## Schema
 
-![ERD of App](erd_blog_app_fig_1_1.png)
+![ERD of App](erd_of_blog_app_fig_1.1.png)
 
 ## Self Notes
 
