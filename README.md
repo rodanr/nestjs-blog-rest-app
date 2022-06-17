@@ -10,7 +10,7 @@
   - JSON BODY to pass
   ```json
   {
-    "userId": "<string>",
+    "userId": <number>,
     "author": "<string>",
     "title": "<string>",
     "description": "<string>"
@@ -35,7 +35,7 @@
   ```json
   {
     "userName": "<string>",
-    "userId": "string>",
+    "userId": <number>,
     "comment": "<string>"
   }
   ```
