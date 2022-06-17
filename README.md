@@ -49,7 +49,7 @@
 - DELETE `blogs/comment/<commentId:number>`: Deletes the comment given by `commentId`
 - GET `Comment/<commentId:number>/user`: Returns the user who posted the comment given by `commentId`
 
-### For Users Operations
+### For User Operations
 
 - POST `users/signup`: Creates a new user
   - JSON BODY to pass
@@ -81,7 +81,8 @@
 
 ## Self Notes
 
-- `blog` module is responsible for blog related operations
+- `blog` module is responsible for blog and comment related operations
+- `user` module is responsible for users related operations
 - For database typeorm is used with postgres being setup using docker which specification is provided by `docker-compose.yml`
 - use the below command to fire up docker
   ```bash
