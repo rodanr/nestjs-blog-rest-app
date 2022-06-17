@@ -1,13 +1,13 @@
-# A simple blog rest api made using nestjs
+# A blog app rest api made with nestjs
 
 ## Operations supported
 ### For Blog:
 
-* GET: `/blog`
-* GET: `/blog/:id`
-* POST: `/blog`
-* PATCH: `/blog:id`
-* DELETE: `/blog:id`
+* GET: `/blogs`
+* GET: `/blogs/:id`
+* POST: `/blogs`
+* PATCH: `/blogs:id`
+* DELETE: `/blogs:id`
 > note: all `:id` above are blog id
 
 *Send the json body for post and patch for blog as:*
@@ -22,9 +22,9 @@
 
 ### For Commenting in a Blog:
 
-* POST: `blog/:id/comment`
+* POST: `blogs/:id/comment`
   * `:id` is the blog id
-* PATCH: `blog/comment/:id`
+* PATCH: `blogs/:id/comment/:id` (**NOT IMPLEMENTED**)
   * `:id` is the comment id
 
 *Send the json body for posting and updating comment as:*
