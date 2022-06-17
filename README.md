@@ -5,7 +5,7 @@
 ### For Blogs:
 
 - GET `blogs/`: Returns all array of all blogs
-- GET `blogs/<blogId:number>`: Return blog of given `blogId`
+- GET `blogs/<blogId:number>`: Returns blog of given `blogId`
 - POST `blogs/`: Posts a new blog
   - JSON BODY to pass
   ```json
