@@ -25,7 +25,7 @@
 * POST: `blogs/:id/comment`
   * `:id` is the blog id
 * PATCH: `blogs/:id/comment/:id` (**NOT IMPLEMENTED**)
-  * `:id` is the comment id
+  * first `:id` is blog id and next one is comment id
 
 *Send the json body for posting and updating comment as:*
 ```json
