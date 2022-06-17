@@ -19,7 +19,7 @@ export class BlogService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
-
+  // operations on blog repository
   findAll() {
     return this.blogRepository.find({
       relations: ['comments'],
@@ -118,5 +118,10 @@ export class BlogService {
       where: { id },
     });
     return blog.user;
+  }
+
+  async removeComment(id: number) {
+    const comment = await this.commentRepository.findOne({ where: { id } });
+    return this.commentRepository.remove(comment);
   }
 }
