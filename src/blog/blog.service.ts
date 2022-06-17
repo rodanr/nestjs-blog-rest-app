@@ -41,6 +41,9 @@ export class BlogService {
     const user = await this.userRepository.findOne({
       where: { id: createBlogDto.userId },
     });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
     const blog = this.blogRepository.create({
       user: user,
       ...createBlogDto,
@@ -67,9 +70,15 @@ export class BlogService {
 
   async createComment(id: number, createCommentDto: CreateCommentDto) {
     const blog = await this.findOne(id);
+    if (!blog) {
+      throw new NotFoundException('Blog not found');
+    }
     const user = await this.userRepository.findOne({
       where: { id: createCommentDto.userId },
     });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
     const comment = this.commentRepository.create({
       blog,
       user,
