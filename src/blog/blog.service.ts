@@ -19,7 +19,6 @@ export class BlogService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
-  // operations on blog repository
   findAll() {
     return this.blogRepository.find({
       relations: ['comments'],
@@ -67,7 +66,14 @@ export class BlogService {
     const blog = await this.findOne(id);
     return this.blogRepository.remove(blog);
   }
-
+  async getUserByBlogId(id: number) {
+    // need to pass the relation
+    const blog = await this.blogRepository.findOne({
+      relations: ['user'],
+      where: { id },
+    });
+    return blog.user;
+  }
   async createComment(id: number, createCommentDto: CreateCommentDto) {
     const blog = await this.findOne(id);
     if (!blog) {
@@ -98,6 +104,10 @@ export class BlogService {
     }
     return this.commentRepository.save(comment);
   }
+  async removeComment(id: number) {
+    const comment = await this.commentRepository.findOne({ where: { id } });
+    return this.commentRepository.remove(comment);
+  }
   async getUserByCommentId(id: number) {
     const comment = await this.commentRepository.findOne({
       relations: ['user'],
@@ -110,18 +120,5 @@ export class BlogService {
       where: { id },
       relations: { blogs: true },
     });
-  }
-  async getUserByBlogId(id: number) {
-    // need to pass the relation
-    const blog = await this.blogRepository.findOne({
-      relations: ['user'],
-      where: { id },
-    });
-    return blog.user;
-  }
-
-  async removeComment(id: number) {
-    const comment = await this.commentRepository.findOne({ where: { id } });
-    return this.commentRepository.remove(comment);
   }
 }
