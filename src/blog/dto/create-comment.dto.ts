@@ -1,6 +1,9 @@
-import { IsString } from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
+import { BaseCommentDto } from './base-comment.dto';
 
-export class CreateCommentDto {
+export class CreateCommentDto extends BaseCommentDto {
   @IsString()
-  readonly comment: string;
+  readonly userName: string;
+  @IsInt()
+  readonly userId: number;
 }
