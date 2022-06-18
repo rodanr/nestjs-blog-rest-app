@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/user/entities/user.entity';
+import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -18,6 +19,7 @@ export class BlogService {
     private readonly commentRepository: Repository<Comment>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly userService: UserService,
   ) {}
   findAll() {
     return this.blogRepository.find({
@@ -37,9 +39,7 @@ export class BlogService {
   }
 
   async create(createBlogDto: CreateBlogDto) {
-    const user = await this.userRepository.findOne({
-      where: { id: createBlogDto.userId },
-    });
+    const user = await this.userService.findUserByUserId(createBlogDto.userId);
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -74,14 +74,15 @@ export class BlogService {
     });
     return blog.user;
   }
+
   async createComment(id: number, createCommentDto: CreateCommentDto) {
     const blog = await this.findOne(id);
     if (!blog) {
       throw new NotFoundException('Blog not found');
     }
-    const user = await this.userRepository.findOne({
-      where: { id: createCommentDto.userId },
-    });
+    const user = await this.userService.findUserByUserId(
+      createCommentDto.userId,
+    );
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -116,9 +117,6 @@ export class BlogService {
     return comment.user;
   }
   async getBlogsByUserId(id: number) {
-    return this.userRepository.findOne({
-      where: { id },
-      relations: { blogs: true },
-    });
+    return this.userService.getBlogsByUserId(id);
   }
 }

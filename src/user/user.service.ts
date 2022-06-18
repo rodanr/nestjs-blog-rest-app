@@ -12,6 +12,18 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
+  async findUserByUserId(id: number) {
+    const user = await this.userRepository.findOne({
+      where: { id },
+    });
+    return user;
+  }
+  async getBlogsByUserId(id: number) {
+    return this.userRepository.findOne({
+      where: { id },
+      relations: { blogs: true },
+    });
+  }
   async getAll() {
     return this.userRepository.find();
   }
