@@ -7,5 +7,6 @@ export class BaseUserDto {
   @IsEmail()
   readonly email: string;
   @IsString()
-  readonly password: string;
+  // removed readonly to include hash here
+  password: string;
 }

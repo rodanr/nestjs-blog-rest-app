@@ -20,8 +20,6 @@ import { UserModule } from './user/user.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    // Enables to use the blogRepository
-    //Blog is the entity imported from models directory
   ],
   controllers: [AppController],
   providers: [AppService],
