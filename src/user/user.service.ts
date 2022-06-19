@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -51,7 +55,10 @@ export class UserService {
       const hash = await bcrypt.hash(updateUserDto.password, saltOrRounds);
       updateUserDto.password = hash;
     }
-
+    const userExist = await this.findUserByUserId(id);
+    if (!userExist) {
+      throw new NotFoundException(`User with #${id} not found`);
+    }
     const user = await this.userRepository.preload({
       id: +id,
       ...updateUserDto,
