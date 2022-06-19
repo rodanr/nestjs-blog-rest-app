@@ -85,7 +85,7 @@
   }
   ```
 
-  > Note: All above operations except all `GET` requests and `POST` login & `POST` sign up operations requires a bearer token for authorization. login after sign up to get the bearer token
+> Note: All above operations except all `GET` requests and `POST` login & `POST` sign up user operations requires a bearer token for authorization. login after sign up to get the bearer token
 
 ## Schema
 
