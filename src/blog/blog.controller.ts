@@ -12,12 +12,10 @@ import {
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/user/jwt-auth.guard';
 import { AuthorizeBlogGuard } from './authorize-blog.guard';
-import { AuthorizeCommentGuard } from './authorize-comment.guard';
 import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Controller('blogs')
 export class BlogController {
@@ -60,7 +58,7 @@ export class BlogController {
   getUserByBlogId(@Param('id') id: number) {
     return this.blogService.getUserByBlogId(id);
   }
-  // Operations for comment management in blog
+  // Posting a comment in a blog
   @UseGuards(JwtAuthGuard)
   @Post('/:id/comment')
   createComment(
@@ -69,15 +67,5 @@ export class BlogController {
     @Req() request: Request,
   ) {
     return this.blogService.createComment(id, body, request);
-  }
-  @UseGuards(JwtAuthGuard, AuthorizeCommentGuard)
-  @Patch('/comment/:id')
-  updateComment(@Param('id') id: number, @Body() body: UpdateCommentDto) {
-    return this.blogService.updateComment(id, body);
-  }
-  @UseGuards(JwtAuthGuard, AuthorizeCommentGuard)
-  @Delete('/comment/:id')
-  deleteComment(@Param('id') id: number) {
-    return this.blogService.removeComment(id);
   }
 }

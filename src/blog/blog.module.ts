@@ -4,6 +4,7 @@ import { User } from 'src/user/entities/user.entity';
 import { UserModule } from 'src/user/user.module';
 import { BlogController } from './blog.controller';
 import { BlogService } from './blog.service';
+import { CommentController } from './comment.controller';
 import { Blog } from './entities/blog.entity';
 import { Comment } from './entities/comment.entity';
 
@@ -14,7 +15,7 @@ import { Comment } from './entities/comment.entity';
     //Blog is the entity imported from models directory
     TypeOrmModule.forFeature([Blog, Comment, User]),
   ],
-  controllers: [BlogController],
+  controllers: [BlogController, CommentController],
   providers: [BlogService],
 })
 export class BlogModule {}

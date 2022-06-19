@@ -38,14 +38,14 @@
     "comment": "<string>"
   }
   ```
-- PATCH `blogs/comment/<commentId:number>`: Updates the comment given by `commentId`
+- PATCH `comments/<commentId:number>`: Updates the comment given by `commentId`
   - JSON BODY to pass
   ```json
   {
     "comment": "<string>"
   }
   ```
-- DELETE `blogs/comment/<commentId:number>`: Deletes the comment given by `commentId`
+- DELETE `comments/<commentId:number>`: Deletes the comment given by `commentId`
 - GET `Comment/<commentId:number>/user`: Returns the user who posted the comment given by `commentId`
 
 ### For User Operations
