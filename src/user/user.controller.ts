@@ -45,7 +45,7 @@ export class UserController {
   }
   //custom decorators
   @UseGuards(JwtAuthGuard)
-  @Patch(':id/update')
+  @Patch(':id')
   updateUser(
     @Param('id') id: number,
     @Body() updateUserDto: UpdateUserDto,
