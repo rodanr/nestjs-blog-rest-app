@@ -100,3 +100,4 @@
 - Some important links for reference and tutorials
   - [nestjs docs](https://docs.nestjs.com/)
   - [typeorm docs](https://typeorm.io/)
+  - [Nestjs Builtin exceptions list](https://docs.nestjs.com/exception-filters#built-in-http-exceptions)
