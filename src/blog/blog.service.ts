@@ -79,7 +79,7 @@ export class BlogService {
       where: { id },
     });
     if (!blog) {
-      throw new NotFoundException('Blog #${id} Not Found');
+      throw new NotFoundException(`Blog #${id} Not Found`);
     }
     return blog.user;
   }
@@ -126,7 +126,7 @@ export class BlogService {
   async removeComment(id: number) {
     const comment = await this.commentRepository.findOne({ where: { id } });
     if (!comment) {
-      throw new NotFoundException('Comment #${id} Not Found');
+      throw new NotFoundException(`Comment #${id} Not Found`);
     }
     return this.commentRepository.remove(comment);
   }
@@ -136,7 +136,7 @@ export class BlogService {
       where: { id },
     });
     if (!comment) {
-      throw new NotFoundException('Comment #${id} Not Found');
+      throw new NotFoundException(`Comment #${id} Not Found`);
     }
     return comment.user;
   }

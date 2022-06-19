@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   HttpException,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -52,6 +53,10 @@ export class UserController {
     @Req() request: Request,
     @UserPermit() permission: boolean,
   ) {
+    const user = this.userService.findUserByUserId(id);
+    if (!user) {
+      throw new NotFoundException(`User with #${id} not found`);
+    }
     if (!permission) {
       throw new UnauthorizedException(
         'Not authorized to perform this operation',

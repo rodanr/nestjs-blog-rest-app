@@ -38,12 +38,9 @@ export class UserService {
   async createUser(createUserDto: CreateUserDto) {
     const saltOrRounds = 10;
     const hash = await bcrypt.hash(createUserDto.password, saltOrRounds);
+    createUserDto.password = hash;
     const user = this.userRepository.create({
-      userName: createUserDto.userName,
-      firstName: createUserDto.firstName,
-      secondName: createUserDto.secondName,
-      email: createUserDto.email,
-      password: hash,
+      ...createUserDto,
     });
     return this.userRepository.save(user);
     // use for sign up
@@ -55,14 +52,17 @@ export class UserService {
       const hash = await bcrypt.hash(updateUserDto.password, saltOrRounds);
       updateUserDto.password = hash;
     }
-    const userExist = await this.findUserByUserId(id);
-    if (!userExist) {
-      throw new NotFoundException(`User with #${id} not found`);
-    }
+    // const userExist = await this.findUserByUserId(id);
+    // if (!userExist) {
+    //   throw new NotFoundException(`User with #${id} not found`);
+    // }
     const user = await this.userRepository.preload({
       id: +id,
       ...updateUserDto,
     });
+    if (!user) {
+      throw new NotFoundException(`User with #${id} not found`);
+    }
     return this.userRepository.save(user);
   }
   async login(loginUserDto: LoginUserDto) {
@@ -70,7 +70,7 @@ export class UserService {
       where: { userName: loginUserDto.userName },
     });
     if (!user) {
-      throw new BadRequestException('Invalid Credentials');
+      throw new BadRequestException('User Not Found');
     }
     if (!(await bcrypt.compare(loginUserDto.password, user.password))) {
       throw new BadRequestException('Invalid Credentials');

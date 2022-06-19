@@ -21,9 +21,6 @@ export class AuthorizeBlogGuard implements CanActivate {
     const userIdFromBlog = userFromBlog.id;
     // console.log(userIdFromParam);
     // userId decoded should match the userId the user is trying to modify
-    if (!(userIdFromJWT === userIdFromBlog)) {
-      return false;
-    }
-    return true;
+    return userIdFromJWT === userIdFromBlog;
   }
 }

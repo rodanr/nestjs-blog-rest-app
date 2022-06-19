@@ -72,7 +72,7 @@
   }
   ```
 
-- PATCH `users/<userId:number>/update`: updates the existing user given by `userId`
+- PATCH `users/<userId:number>`: updates the existing user given by `userId`
 
   - JSON BODY to pass
 

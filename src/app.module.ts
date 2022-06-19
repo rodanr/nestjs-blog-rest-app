@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BlogModule } from './blog/blog.module';
 import { UserModule } from './user/user.module';
+import 'dotenv/config';
 
 @Module({
   imports: [
@@ -12,11 +13,11 @@ import { UserModule } from './user/user.module';
     // connecting to the postgres
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'pass123',
-      database: 'postgres',
+      host: process.env.host_name,
+      port: parseInt(process.env.port),
+      username: process.env.pg_username,
+      password: process.env.pg_password,
+      database: process.env.database,
       autoLoadEntities: true,
       synchronize: true,
     }),

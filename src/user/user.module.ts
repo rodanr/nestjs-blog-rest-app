@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
+import 'dotenv/config';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { JwtStrategy } from './jwt.strategy';
     PassportModule,
     // Import JwtModule in that module where that module service is using JWTService
     JwtModule.register({
-      secret: 'secret',
+      secret: process.env.secret,
       signOptions: { expiresIn: '1d' },
     }),
   ],
