@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/user/entities/user.entity';
+import { Request } from 'express';
 import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { CreateBlogDto } from './dto/create-blog.dto';
@@ -17,8 +18,6 @@ export class BlogService {
     private readonly blogRepository: Repository<Blog>,
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
     private readonly userService: UserService,
   ) {}
   findAll() {
@@ -38,13 +37,20 @@ export class BlogService {
     return blog;
   }
 
-  async create(createBlogDto: CreateBlogDto) {
-    const user = await this.userService.findUserByUserId(createBlogDto.userId);
+  async create(createBlogDto: CreateBlogDto, request: Request) {
+    const jwtReceived = request.headers.authorization.replace('Bearer ', '');
+    // console.log(jwtReceived);
+    const jwtService = new JwtService();
+    const decoded = jwtService.decode(jwtReceived, { json: true });
+    // const userName = decoded['username'];
+    const userIdFromJWT = parseInt(decoded['sub']);
+    const user = await this.userService.findUserByUserId(userIdFromJWT);
     if (!user) {
       throw new NotFoundException('User not found');
     }
     const blog = this.blogRepository.create({
       user: user,
+      author: `${user.firstName} ${user.secondName}`,
       ...createBlogDto,
     });
 
@@ -72,23 +78,35 @@ export class BlogService {
       relations: ['user'],
       where: { id },
     });
+    if (!blog) {
+      throw new NotFoundException('Blog #${id} Not Found');
+    }
     return blog.user;
   }
 
-  async createComment(id: number, createCommentDto: CreateCommentDto) {
+  async createComment(
+    id: number,
+    createCommentDto: CreateCommentDto,
+    request: Request,
+  ) {
     const blog = await this.findOne(id);
     if (!blog) {
       throw new NotFoundException('Blog not found');
     }
-    const user = await this.userService.findUserByUserId(
-      createCommentDto.userId,
-    );
+    const jwtReceived = request.headers.authorization.replace('Bearer ', '');
+    // console.log(jwtReceived);
+    const jwtService = new JwtService();
+    const decoded = jwtService.decode(jwtReceived, { json: true });
+    // const userName = decoded['username'];
+    const userIdFromJWT = parseInt(decoded['sub']);
+    const user = await this.userService.findUserByUserId(userIdFromJWT);
     if (!user) {
       throw new NotFoundException('User not found');
     }
     const comment = this.commentRepository.create({
       blog,
       user,
+      userName: user.userName,
       ...createCommentDto,
     });
     return this.commentRepository.save(comment);
@@ -107,6 +125,9 @@ export class BlogService {
   }
   async removeComment(id: number) {
     const comment = await this.commentRepository.findOne({ where: { id } });
+    if (!comment) {
+      throw new NotFoundException('Comment #${id} Not Found');
+    }
     return this.commentRepository.remove(comment);
   }
   async getUserByCommentId(id: number) {
@@ -114,6 +135,9 @@ export class BlogService {
       relations: ['user'],
       where: { id },
     });
+    if (!comment) {
+      throw new NotFoundException('Comment #${id} Not Found');
+    }
     return comment.user;
   }
   async getBlogsByUserId(id: number) {

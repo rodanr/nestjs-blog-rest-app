@@ -19,6 +19,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { UserService } from './user.service';
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
+import { UserPermit } from 'src/user/user-permit.decorator';
 /*
 TODO: User authentication and authorization
  */
@@ -49,13 +50,9 @@ export class UserController {
     @Param('id') id: number,
     @Body() updateUserDto: UpdateUserDto,
     @Req() request: Request,
+    @UserPermit() permission: boolean,
   ) {
-    // userId decoded should match the userId the user is trying to modify
-    const jwtReceived = request.headers.authorization.replace('Bearer ', '');
-    const decoded = this.jwtService.decode(jwtReceived, { json: true });
-    const userName = decoded['username'];
-    const userId = decoded['sub'];
-    if (userId != id) {
+    if (!permission) {
       throw new UnauthorizedException(
         'Not authorized to perform this operation',
       );
