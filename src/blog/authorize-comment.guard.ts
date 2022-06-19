@@ -18,12 +18,10 @@ export class AuthorizeCommentGuard implements CanActivate {
     const userFromComment = await this.blogService.getUserByCommentId(
       commentIdFromParam,
     );
-    const userIdFromComment = userFromComment.id;
+    const userIdFromComment = userFromComment.user_id;
     // console.log(userIdFromParam);
     // userId decoded should match the userId the user is trying to modify
-    if (!(userIdFromJWT === userIdFromComment)) {
-      return false;
-    }
-    return true;
+
+    return userIdFromJWT === userIdFromComment;
   }
 }

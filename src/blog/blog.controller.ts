@@ -49,11 +49,6 @@ export class BlogController {
     return this.blogService.remove(id);
   }
 
-  // operations for user management in comment and blog
-  @Get('/comment/:id/user')
-  getUserByCommentId(@Param('id') id: number) {
-    return this.blogService.getUserByCommentId(id);
-  }
   @Get(':id/user')
   getUserByBlogId(@Param('id') id: number) {
     return this.blogService.getUserByBlogId(id);

@@ -130,16 +130,7 @@ export class BlogService {
     }
     return this.commentRepository.remove(comment);
   }
-  async getUserByCommentId(id: number) {
-    const comment = await this.commentRepository.findOne({
-      relations: ['user'],
-      where: { id },
-    });
-    if (!comment) {
-      throw new NotFoundException(`Comment #${id} Not Found`);
-    }
-    return comment.user;
-  }
+
   async getBlogsByUserId(id: number) {
     const blogs = await this.userService.getBlogsByUserId(id);
     return {
@@ -148,4 +139,19 @@ export class BlogService {
       blogs: blogs.blogs,
     };
   }
+  async getUserByCommentId(id: number) {
+    const comment = await this.commentRepository.findOne({
+      relations: ['user'],
+      where: { id },
+    });
+    if (!comment) {
+      throw new NotFoundException(`Comment #${id} Not Found`);
+    }
+    const user = comment.user;
+    return {
+      user_id: user.id,
+      name: user.firstName + ' ' + user.secondName,
+    };
+  }
+  // operations for user management in comment and blog
 }

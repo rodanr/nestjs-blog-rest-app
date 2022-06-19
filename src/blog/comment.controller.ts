@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Patch,
   UseGuards,
@@ -25,5 +26,9 @@ export class CommentController {
   @Delete(':id')
   deleteComment(@Param('id') id: number) {
     return this.blogService.removeComment(id);
+  }
+  @Get(':id/user')
+  getUserByCommentId(@Param('id') id: number) {
+    return this.blogService.getUserByCommentId(id);
   }
 }
