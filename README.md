@@ -46,7 +46,7 @@
   }
   ```
 - DELETE `comments/<commentId:number>`: Deletes the comment given by `commentId`
-- GET `Comment/<commentId:number>/user`: Returns the user who posted the comment given by `commentId`
+- GET `comments/<commentId:number>/user`: Returns the user who posted the comment given by `commentId`
 
 ### For User Operations
 
