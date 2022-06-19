@@ -7,15 +7,16 @@
 - GET `blogs/`: Returns array of all blogs
 - GET `blogs/<blogId:number>`: Returns blog of given `blogId`
 - POST `blogs/`: Posts a new blog
+
   - JSON BODY to pass
+
   ```json
   {
-    "userId": <number>,
-    "author": "<string>",
     "title": "<string>",
     "description": "<string>"
   }
   ```
+
 - PATCH `blogs/<blogId:number>`: Updates the existing blog of given `blogId`
   - JSON BODY to pass
   ```json
@@ -34,8 +35,6 @@
   - JSON BODY to pass
   ```json
   {
-    "userName": "<string>",
-    "userId": <number>,
     "comment": "<string>"
   }
   ```
@@ -62,6 +61,17 @@
     "password": "<string>"
   }
   ```
+- POST `users/login`: Log in user and sends jwt token back
+
+  - JSON BODY to pass
+
+  ```json
+  {
+    "userName": "<string>",
+    "password": "<string>"
+  }
+  ```
+
 - POST `users/<userId:number>/update`: updates the existing user given by `userId`
 
   - JSON BODY to pass
@@ -74,6 +84,8 @@
     "password": "<string>"
   }
   ```
+
+  > Note: All above operations except all `GET` requests and `POST` login & `POST` sign up operations requires a bearer token for authorization. login after sign up to get the bearer token
 
 ## Schema
 
