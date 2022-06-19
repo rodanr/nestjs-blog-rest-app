@@ -15,6 +15,8 @@ export class AuthorizeBlogGuard implements CanActivate {
     // const userName = decoded['username'];
     const userIdFromJWT = parseInt(decoded['sub']);
     const blogIdFromParam = parseInt(request.params.id);
+    console.log('ran');
+
     const userFromBlog = await this.blogService.getUserByBlogId(
       blogIdFromParam,
     );

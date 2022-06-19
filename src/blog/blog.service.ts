@@ -22,7 +22,7 @@ export class BlogService {
   ) {}
   async findAll() {
     return await this.blogRepository.find({
-      select: { title: true, author: true },
+      select: { id: true, title: true, author: true },
     });
   }
 
@@ -62,8 +62,9 @@ export class BlogService {
       id: +id,
       ...updateBlogDto,
     });
+
     if (!blog) {
-      throw new NotFoundException(`Blog #${id} not found`);
+      throw new NotFoundException(`Blog #${id} not found `);
     }
     return this.blogRepository.save(blog);
   }
@@ -91,7 +92,7 @@ export class BlogService {
   ) {
     const blog = await this.findOne(id);
     if (!blog) {
-      throw new NotFoundException('Blog not found');
+      throw new NotFoundException(`Blog #${id} not found`);
     }
     const jwtReceived = request.headers.authorization.replace('Bearer ', '');
     // console.log(jwtReceived);
@@ -118,8 +119,10 @@ export class BlogService {
       id: +id,
       ...updateCommentDto,
     });
+    // console.log(comment);
+
     if (!comment) {
-      throw new NotFoundException(`Comment #${id} not found`);
+      throw new NotFoundException(`Comment #${id} not found hell`);
     }
     return this.commentRepository.save(comment);
   }

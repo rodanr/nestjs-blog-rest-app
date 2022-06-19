@@ -54,9 +54,6 @@ export class UserController {
     @UserPermit() permission: boolean,
   ) {
     const user = this.userService.findUserByUserId(id);
-    if (!user) {
-      throw new NotFoundException(`User with #${id} not found`);
-    }
     if (!permission) {
       throw new UnauthorizedException(
         'Not authorized to perform this operation',
