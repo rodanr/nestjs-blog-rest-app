@@ -20,9 +20,9 @@ export class BlogService {
     private readonly commentRepository: Repository<Comment>,
     private readonly userService: UserService,
   ) {}
-  findAll() {
-    return this.blogRepository.find({
-      relations: ['comments'],
+  async findAll() {
+    return await this.blogRepository.find({
+      select: { title: true, author: true },
     });
   }
 
@@ -141,6 +141,11 @@ export class BlogService {
     return comment.user;
   }
   async getBlogsByUserId(id: number) {
-    return this.userService.getBlogsByUserId(id);
+    const blogs = await this.userService.getBlogsByUserId(id);
+    return {
+      user_id: blogs.userName,
+      Author: blogs.firstName + ' ' + blogs.secondName,
+      blogs: blogs.blogs,
+    };
   }
 }

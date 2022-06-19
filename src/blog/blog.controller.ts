@@ -22,11 +22,11 @@ export class BlogController {
   constructor(private readonly blogService: BlogService) {}
   //Operations for blog management
   @Get()
-  findAll() {
+  findAllBlogs() {
     return this.blogService.findAll();
   }
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findBlogsByBlogId(@Param('id') id: number) {
     return this.blogService.findOne(id);
   }
   @Get('/user/:id')
